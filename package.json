@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "task1": "nodemon task1",
-    "task2": "nodemon task2"
+    "task1": "nodemon --exec babel-node task1",
+    "task2": "nodemon --exec babel-node task2"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,10 @@
   },
   "homepage": "https://github.com/Maryna-Yelakova/node.js-cdp#readme",
   "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.7.6",
     "nodemon": "^2.0.1"
   },
   "dependencies": {
