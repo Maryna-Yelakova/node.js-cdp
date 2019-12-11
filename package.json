@@ -1,0 +1,32 @@
+{
+  "name": "node.js-cdp",
+  "version": "1.0.0",
+  "description": "NodeJS Global Mentoring Program",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "task1": "nodemon --exec babel-node task1",
+    "task2": "nodemon --exec babel-node task2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maryna-Yelakova/node.js-cdp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maryna-Yelakova/node.js-cdp/issues"
+  },
+  "homepage": "https://github.com/Maryna-Yelakova/node.js-cdp#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.7.6",
+    "nodemon": "^2.0.1"
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "fs": "0.0.1-security"
+  }
+}
