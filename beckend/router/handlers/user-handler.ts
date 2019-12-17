@@ -1,5 +1,4 @@
-import { Users } from './users';
-import { User } from '../models/User';
+import { Users } from '../../services/users';
 
 const users = new Users();
 
