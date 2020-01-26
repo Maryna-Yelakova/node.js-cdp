@@ -1,5 +1,6 @@
 import express from 'express';
 import router from './router/router';
+import { sequelize } from './database-models/index';
 
 // Create a new express application instance
 const app: express.Application = express();
@@ -7,12 +8,16 @@ const app: express.Application = express();
 app.use(express.json());
 app.use(router);
 
+
 const port = process.env.PORT || 3000;
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
-app.listen(port, function () {
-    console.log('Example app listening on port 3000!');
+sequelize.sync().then(async () => {
+    app.listen(port, () =>
+        console.log(`Example app listening on port ${port}!`),
+    );
 });
+
