@@ -1,9 +1,9 @@
 import { User } from '../../models/User';
-import models from '../../database-models/index';
+import userService from '../../services/user-service';
 
 export const userHandler = {
     getUsers: (req, res) => {
-        const data = models.User.getUsers();
+        const data = userService.getUsers();
         if (data) {
             res.status(200).send(data);
         } else {
@@ -12,7 +12,7 @@ export const userHandler = {
     },
     getUserById: (req, res) => {
         const { id } = req.params;
-        const user = models.User.findById(id);
+        const user = userService.getUserById(id);
         if (user) {
             res.status(200).send(user);
         } else {
@@ -21,7 +21,7 @@ export const userHandler = {
     },
     setUser: (req, res) => {
         const data: User = req.body;
-        models.User.addUser(data);
+        userService.addUser(data);
         if (data) {
             res.status(200).send(`${data.login} user has been created successfully`);
         } else {
@@ -31,7 +31,7 @@ export const userHandler = {
     editUser: (req, res) => {
         const data = req.body;
         const { id } = req.params;
-        models.User.editUser(id, data);
+        userService.editUser(id, data);
         if (data && id) {
             res.status(200).send(`${data.login} user has been updated successfully`);
         } else {
@@ -40,7 +40,7 @@ export const userHandler = {
     },
     deleteUser: (req, res) => {
         const { id } = req.params;
-        models.User.deleteUser(id);
+        userService.deleteUser(id);
         if (id) {
             res.status(200).send(`user has been deleted successfully`);
         } else {

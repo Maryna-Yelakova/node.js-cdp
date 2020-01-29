@@ -1,8 +1,4 @@
-import Sequelize from 'sequelize';
-
-const sequelize = new Sequelize("postgres://postgres:Vitalii19@localhost/Users", {
-    dialect: 'postgres'
-});
+import sequelize from  './connection';
 
 const models = {
     User: sequelize.import('./UserModel')
@@ -14,5 +10,4 @@ Object.keys(models).forEach(key => {
     }
 });
 
-export { sequelize };
 export default models;

@@ -1,3 +1,5 @@
+import { User } from '../models/User';
+
 const user = (sequelize, DataTypes) => {
     const User = sequelize.define('user', {
         user_id: DataTypes.STRING,
@@ -7,13 +9,11 @@ const user = (sequelize, DataTypes) => {
         isDeleted: DataTypes.BOOLEAN
     });
 
-    User.findById = async id => {
-        return await User.findOne({
+    User.findById = (id: string) => User.findOne({
             where: { id: id },
         });
-    };
 
-    User.addUser = async (user) => {
+    User.addUser = async (user: User) => {
         await User.create(user);
     };
 
@@ -21,7 +21,7 @@ const user = (sequelize, DataTypes) => {
         return await User.findAll();
     };
 
-    User.editUser = async (id, data) => {
+    User.editUser = async (id: string, data: User) => {
         await User.update(data, {
             where: {
                 id: id
