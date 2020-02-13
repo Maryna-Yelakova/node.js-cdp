@@ -1,5 +1,6 @@
 import express from 'express';
 import { userHandler } from './handlers/user-handler';
+import { groupHandler } from './handlers/group-handler';
 import { middleware } from "../middlewares/middleware";
 import { userSchema } from "../validation/user-schema";
 
@@ -10,5 +11,16 @@ router.get("/users/:id", userHandler.getUserById);
 router.post("/users", middleware(userSchema), userHandler.setUser);
 router.put("/users/update/:id", middleware(userSchema), userHandler.editUser);
 router.delete("/users/delete/:id", userHandler.deleteUser);
+
+router.get("/users/groups", userHandler.getGroups);
+router.post("/users/groups", userHandler.addGroup);
+
+router.get("/groups", groupHandler.getGroups);
+router.get("/groups/:id", groupHandler.getGroupById);
+router.post("/groups", groupHandler.setGroup);
+router.put("/groups/update/:id", groupHandler.editGroup); //http://localhost:3000/groups/update/4
+router.delete("/groups/delete/:id", groupHandler.deleteGroup);
+
+router.get("/groups/users", groupHandler.getUsers);
 
 export default router;

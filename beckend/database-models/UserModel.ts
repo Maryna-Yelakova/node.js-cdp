@@ -1,8 +1,8 @@
 import { User } from '../models/User';
+import  models  from "./index";
 
 const user = (sequelize, DataTypes) => {
     const User = sequelize.define('user', {
-        user_id: DataTypes.STRING,
         login: DataTypes.STRING,
         password: DataTypes.STRING,
         age: DataTypes.INTEGER,
@@ -10,8 +10,8 @@ const user = (sequelize, DataTypes) => {
     });
 
     User.findById = (id: string) => User.findOne({
-            where: { id: id },
-        });
+            where: { id: id }
+    });
 
     User.addUser = async (user: User) => {
         await User.create(user);
@@ -35,6 +35,10 @@ const user = (sequelize, DataTypes) => {
                 id: id
             }
         });
+    };
+
+    User.associate = models => {
+        User.belongsToMany(models.Group, {through: 'UserGroup', foreignKey: 'user_id', as: 'groups'})
     };
 
     return User;

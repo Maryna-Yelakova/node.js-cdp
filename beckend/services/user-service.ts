@@ -6,7 +6,10 @@ const userService = {
     getUserById : (id: string) => models.User.findById(id),
     addUser: (data: User) => models.User.addUser(data),
     editUser: (id: string, data: User) => models.User.editUser(id, data),
-    deleteUser: (id: string) => models.User.deleteUser(id)
+    deleteUser: (id: string) => models.User.deleteUser(id),
+    //sequelize generated methods
+    getGroups: () => models.User.getGroups(),
+    addGroup: group => models.User.addGroup(group)
 };
 
 export default userService;
