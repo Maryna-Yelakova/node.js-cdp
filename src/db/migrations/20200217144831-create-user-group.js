@@ -8,11 +8,21 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
-        type: Sequelize.STRING
+      userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {         // User hasMany Groups n:n
+          model: 'Users',
+          key: 'id'
+        }
       },
-      goup_id: {
-        type: Sequelize.STRING
+      groupId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {         // User hasMany WorkingDays n:n
+          model: 'Groups',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
