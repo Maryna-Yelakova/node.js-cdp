@@ -1,6 +1,6 @@
 import express from 'express';
 import * as bodyParser from 'body-parser';
-import userRouter from './router/user.router';
+import router from 'router';
 
 export const app = express();
 
@@ -20,4 +20,4 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(userRouter);
+app.use(router);

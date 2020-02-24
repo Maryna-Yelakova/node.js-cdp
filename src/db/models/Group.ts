@@ -5,22 +5,22 @@ import {
   BelongsToMany,
   CreatedAt,
   UpdatedAt,
-  // Scopes,
+  Scopes,
   DataType,
 } from "sequelize-typescript";
 import { User } from "./user";
 import { UserGroup } from "./usergroup";
 
-// @Scopes(() => ({
-//   users: {
-//     include: [
-//       {
-//         model: User,
-//         through: { attributes: [] },
-//       },
-//     ],
-//   },
-// }))
+@Scopes(() => ({
+  users: {
+    include: [
+      {
+        model: User,
+        through: { attributes: [] },
+      },
+    ],
+  },
+}))
 
 @Table
 export class Group extends Model<Group> {

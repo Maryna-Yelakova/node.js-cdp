@@ -9,7 +9,7 @@
     "task2": "nodemon --exec babel-node task2",
     "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx beckend",
     "tsc": "tsc",
-    "dev": "ts-node-dev --respawn --transpileOnly ./beckend/index.ts",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
     "prod": "tsc && node ./build/index.js"
   },
   "repository": {

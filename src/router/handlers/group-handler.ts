@@ -1,59 +1,49 @@
-import { Group } from '../../models/Group';
-import groupService from '../../services/group-service';
+import * as groupService from '../../services/group.service';
 
 export const groupHandler = {
-    getGroups: (req, res) => {
-        const data = groupService.getGroups();
-        if (data) {
-            res.status(200).send(data);
+    async getGroups(req, res) {
+        const list = await groupService.getGroups();
+        if (list) {
+            res.status(200).send(list);
         } else {
             res.status(400).send('Bad Request');
         }
     },
-    getGroupById: (req, res) => {
+    async getGroupById(req, res) {
         const { id } = req.params;
-        const group = groupService.getGroupById(id);
-        if (group) {
-            res.status(200).send(group);
+        const user = await groupService.getGroupById(id);
+        if (user) {
+            res.status(200).send(user);
         } else {
             res.status(400).send('Bad Request');
         }
     },
-    setGroup: (req, res) => {
-        const data: Group = req.body;
-        groupService.addGroup(data);
-        if (data) {
-            res.status(200).send(`${data.name} group has been created successfully`);
-        } else {
-            res.status(400).send('Bad Request');
+    async createGroup(req, res) {
+        try {
+            const data = req.body;
+            await groupService.createGroup(data);
+            res.status(200).send(`${data.login} user has been created successfully`);
+        } catch (err) {
+            res.status(400).send(`Bad Request: ${err}`);
         }
     },
-    editGroup: (req, res) => {
-        const data = req.body;
-        const { id } = req.params;
-        groupService.editGroup(id, data);
-        if (data && id) {
-            res.status(200).send(`${data.name} group has been updated successfully`);
-        } else {
-            res.status(400).send('Bad Request');
+    async editGroup(req, res) {
+        try {
+            const data = req.body;
+            const { id } = req.params;
+            await groupService.editGroup({ id, data });
+            res.status(200).send(`${data.login} user has been updated successfully`);
+        } catch (err) {
+            res.status(400).send(`Bad Request: ${err}`);
         }
     },
-    deleteGroup: (req, res) => {
-        const { id } = req.params;
-        groupService.deleteGroup(id);
-        if (id) {
-            res.status(200).send(`group has been deleted successfully`);
-        } else {
-            res.status(400).send('Bad Request');
-        }
-    },
-    getUsers: (req,res) => {
-        const data = groupService.getUsers();
-        if (data) {
-            res.status(200).send(data);
-        } else {
-            res.status(400).send('Bad Request');
+    async deleteGroup(req, res) {
+        try {
+            const { id } = req.params;
+            await groupService.deleteGroup(id);
+            res.status(200).send(`user has been deleted successfully`);
+        } catch (err) {
+            res.status(400).send(`Bad Request: ${err}`);
         }
     }
-
 };
