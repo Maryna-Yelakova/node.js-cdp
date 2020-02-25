@@ -1,67 +1,69 @@
-import { User } from '../../models/User';
-import userService from '../../services/user-service';
+import * as userService from  '../../services/user-service';
 
 export const userHandler = {
-    getUsers: (req, res) => {
-        const data = userService.getUsers();
-        if (data) {
-            res.status(200).send(data);
+    async getUsers(req, res) {
+        const list = await userService.getUsers();
+        if (list) {
+            res.status(200).send(list);
         } else {
             res.status(400).send('Bad Request');
         }
     },
-    getUserById: (req, res) => {
+    async getUserById(req, res) {
         const { id } = req.params;
-        const user = userService.getUserById(id);
+        const user = await userService.getUserById(id);
         if (user) {
             res.status(200).send(user);
         } else {
             res.status(400).send('Bad Request');
         }
     },
-    setUser: (req, res) => {
-        const data: User = req.body;
-        userService.addUser(data);
-        if (data) {
+    async createUser(req, res) {
+        try {
+            const data = req.body;
+            await userService.createUser(data);
             res.status(200).send(`${data.login} user has been created successfully`);
-        } else {
-            res.status(400).send('Bad Request');
+        } catch (err) {
+            res.status(400).send(`Bad Request: ${err}`);
         }
     },
-    editUser: (req, res) => {
-        const data = req.body;
-        const { id } = req.params;
-        userService.editUser(id, data);
-        if (data && id) {
+    async editUser(req, res) {
+        try {
+            const data = req.body;
+            const { id } = req.params;
+            await userService.editUser({ id, data });
             res.status(200).send(`${data.login} user has been updated successfully`);
-        } else {
-            res.status(400).send('Bad Request');
+        } catch (err) {
+            res.status(400).send(`Bad Request: ${err}`);
         }
     },
-    deleteUser: (req, res) => {
-        const { id } = req.params;
-        userService.deleteUser(id);
-        if (id) {
+    async deleteUser(req, res) {
+        try {
+            const { id } = req.params;
+            await userService.deleteUser(id);
             res.status(200).send(`user has been deleted successfully`);
+        } catch (err) {
+            res.status(400).send(`Bad Request: ${err}`);
+        }
+    },
+    async getUserGroups(req, res) {
+        const { id } = req.params;
+        console.log(id)
+        const groups = await userService.getUserGroupsById(id);
+        if (groups) {
+            res.status(200).send(groups);
         } else {
             res.status(400).send('Bad Request');
         }
     },
-    getGroups: (req, res) => {
-       const users = userService.getGroups();
-        if (users) {
-            res.status(200).send(users);
-        } else {
-            res.status(400).send('Bad Request');
-        }
-    },
-    addGroup: (req, res) => {
-        const group  = req.body;
-        userService.addGroup(group.id);
-        if (group) {
-            res.status(200).send(`${group} group to user has been created successfully`);
-        } else {
-            res.status(400).send('Bad Request');
+    async addUserGroup(req, res) {
+        try {
+            const { id } = req.params;
+            const { groupId } = req.body;
+            await userService.addUserGroup({ groupId, userId: id });
+            res.status(200).send(`${groupId} group to user ${id} has been added successfully`);
+        } catch (err) {
+            res.status(400).send(`Bad Request: ${err}`);
         }
     }
 

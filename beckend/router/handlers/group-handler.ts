@@ -3,7 +3,7 @@ import groupService from '../../services/group-service';
 
 export const groupHandler = {
     getGroups: (req, res) => {
-        const data = groupService.getGroups();
+        const data = groupService.getGroups().then(data => console.log(data));
         if (data) {
             res.status(200).send(data);
         } else {

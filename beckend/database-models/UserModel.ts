@@ -37,7 +37,7 @@ const user = (sequelize, DataTypes) => {
     };
 
     UserModel.associate = models => {
-        UserModel.belongsToMany(models.Group, {through: 'UserGroup', foreignKey: 'user_id', as: 'groups'})
+        UserModel.belongsToMany(models.Group, {through: 'UserGroup', foreignKey: 'userId'})
     };
 
     return UserModel;

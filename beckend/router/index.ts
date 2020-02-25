@@ -8,12 +8,12 @@ const router = express.Router();
 
 router.get("/users", userHandler.getUsers);
 router.get("/users/:id", userHandler.getUserById);
-router.post("/users", middleware(userSchema), userHandler.setUser);
+router.post("/users", middleware(userSchema), userHandler.createUser);
 router.put("/users/update/:id", middleware(userSchema), userHandler.editUser);
 router.delete("/users/delete/:id", userHandler.deleteUser);
 
-router.get("/users/groups", userHandler.getGroups);
-router.post("/users/groups", userHandler.addGroup);
+router.get("/users/:id/groups", userHandler.getUserGroups);
+router.post("/users/:id/group", userHandler.addUserGroup);
 
 router.get("/groups", groupHandler.getGroups);
 router.get("/groups/:id", groupHandler.getGroupById);
