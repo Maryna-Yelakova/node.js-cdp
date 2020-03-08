@@ -1,6 +1,8 @@
 import express from 'express';
 import { userHandler } from './handlers/user-handler';
 import { groupHandler } from './handlers/group-handler';
+import { authHandler } from "../auth/auth";
+import { verifyToken } from "../auth/verifyToken";
 import { middleware } from "../middlewares/middleware";
 import { userSchema } from "../validation/user-schema";
 
@@ -22,5 +24,15 @@ router.put("/groups/update/:id", groupHandler.editGroup); //http://localhost:300
 router.delete("/groups/delete/:id", groupHandler.deleteGroup);
 
 router.get("/groups/users", groupHandler.getUsers);
+
+router.post("/register", authHandler.registerUser);
+router.get("/me", verifyToken, authHandler.getMe);
+router.post("/login", authHandler.loginUser);
+router.post("/logout", authHandler.logoutUser);
+
+// add the middleware function (how to separate logic??)
+router.use(function (user, req, res, next) {
+    res.status(200).send(user);
+});
 
 export default router;
