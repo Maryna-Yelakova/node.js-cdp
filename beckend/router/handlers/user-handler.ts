@@ -1,13 +1,18 @@
 import * as userService from  '../../services/user-service';
 
 export const userHandler = {
-    async getUsers(req, res) {
-        const list = await userService.getUsers();
-        if (list) {
-            res.status(200).send(list);
-        } else {
-            res.status(400).send('Bad Request');
+    async getUsers(req, res, next) {
+        try {
+            const list = await userService.getUsers();
+            if (list) {
+                res.status(200).send(list);
+            } else {
+                res.status(400).send('Bad Request');
+            }
+        } catch(err) {
+            next(err);
         }
+
     },
     async getUserById(req, res) {
         const { id } = req.params;
@@ -46,14 +51,17 @@ export const userHandler = {
             res.status(400).send(`Bad Request: ${err}`);
         }
     },
-    async getUserGroups(req, res) {
-        const { id } = req.params;
-        console.log(id)
-        const groups = await userService.getUserGroupsById(id);
-        if (groups) {
-            res.status(200).send(groups);
-        } else {
-            res.status(400).send('Bad Request');
+    async getUserGroups(req, res, next) {
+        try {
+            const { id } = req.params;
+            const groups = await userService.getUserGroupsById(id);
+            if (groups) {
+                res.status(200).send(groups);
+            } else {
+                res.status(400).send('Bad Request');
+            }
+        } catch (err) {
+            next(err)
         }
     },
     async addUserGroup(req, res) {

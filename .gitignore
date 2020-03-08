@@ -14,4 +14,7 @@ secret.txt
 /build
 /models
 /migrations
+/frontend
 
+ #logs
+*.log
