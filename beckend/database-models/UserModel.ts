@@ -1,43 +1,46 @@
 import { User } from '../models/User';
 
 const user = (sequelize, DataTypes) => {
-    const User = sequelize.define('user', {
-        user_id: DataTypes.STRING,
+    const UserModel = sequelize.define('user', {
         login: DataTypes.STRING,
         password: DataTypes.STRING,
         age: DataTypes.INTEGER,
         isDeleted: DataTypes.BOOLEAN
     });
 
-    User.findById = (id: string) => User.findOne({
-            where: { id: id },
-        });
+    UserModel.findById = (id: string) => UserModel.findOne({
+            where: { id: id }
+    });
 
-    User.addUser = async (user: User) => {
-        await User.create(user);
+    UserModel.addUser = async (user: User) => {
+        await UserModel.create(user);
     };
 
-    User.getUsers = async () => {
-        return await User.findAll();
+    UserModel.getUsers = async () => {
+        return await UserModel.findAll();
     };
 
-    User.editUser = async (id: string, data: User) => {
-        await User.update(data, {
+    UserModel.editUser = async (id: string, data: User) => {
+        await UserModel.update(data, {
             where: {
                 id: id
             }
         });
     };
 
-    User.deleteUser = async id => {
-        await User.destroy({
+    UserModel.deleteUser = async id => {
+        await UserModel.destroy({
             where: {
                 id: id
             }
         });
     };
 
-    return User;
+    UserModel.associate = models => {
+        UserModel.belongsToMany(models.Group, {through: 'UserGroup', foreignKey: 'userId'})
+    };
+
+    return UserModel;
 };
 
 export default user;

@@ -1,12 +1,17 @@
 import models from '../database-models/index';
-import { User } from '../models/User';
 
-const userService = {
-    getUsers: () => models.User.getUsers(),
-    getUserById : (id: string) => models.User.findById(id),
-    addUser: (data: User) => models.User.addUser(data),
-    editUser: (id: string, data: User) => models.User.editUser(id, data),
-    deleteUser: (id: string) => models.User.deleteUser(id)
+export const getUsers = () => models.User.findAll();
+export const getUserById = id => models.User.findByPk(id).then(user => user ? user.get() : null);
+export const createUser = data => models.User.create(data);
+export const editUser = ({ data, id }) => models.User.update(data, { where: { id } });
+export const deleteUser = id => models.User.destroy({ where: { id } });
+export const getUserGroupsById = (id: number): Promise<[]> => models.User.findByPk(id, { include: ['groups'] }).then(user => user && user.groups || []);
+export const addUserGroup = async ({ userId, groupId }) => {
+    // @Todo: user group name instead of id
+    const user = await models.User.findByPk(userId);
+    if (user) {
+        user.addGroup('groups', groupId);
+    } else {
+        throw new Error('cannot find user with such id');
+    }
 };
-
-export default userService;

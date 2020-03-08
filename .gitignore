@@ -6,8 +6,15 @@
 npm-debug.log*
 secret.txt
 .env
-
+.eslintcache
+*.js
+*.js.map
 .idea/
 
 /build
+/models
+/migrations
+/frontend
 
+ #logs
+*.log
