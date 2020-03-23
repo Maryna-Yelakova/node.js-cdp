@@ -1,6 +1,7 @@
 import express from 'express';
 import router from './router';
 import app from './initialization';
+import cors from 'cors';
 import winston from 'winston';
 
 const PORT = process.env.PORT || 8000;
@@ -32,6 +33,8 @@ const logger = winston.createLogger({
         })
     ]
 });
+
+app.use(cors()); //enable CORS
 
 //parse application/json
 app.use(express.json());

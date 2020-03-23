@@ -2,6 +2,7 @@ import models from '../database-models/index';
 
 export const getUsers = () => models.User.findAll();
 export const getUserById = id => models.User.findByPk(id).then(user => user ? user.get() : null);
+export const getUser = login => models.User.findOne({ where: { login }}).then(user => user ? user.get() : null);
 export const createUser = data => models.User.create(data);
 export const editUser = ({ data, id }) => models.User.update(data, { where: { id } });
 export const deleteUser = id => models.User.destroy({ where: { id } });
