@@ -15,6 +15,7 @@ secret.txt
 /models
 /migrations
 /frontend
+/coverage
 
  #logs
 *.log
