@@ -1,7 +1,7 @@
 import * as userService from  '../../services/user-service';
 
 export const userHandler = {
-    async getUsers(req, res, next) {
+    async getUsers(req, res) {
         try {
             const list = await userService.getUsers();
             if (list) {
